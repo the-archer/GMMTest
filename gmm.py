@@ -1,5 +1,6 @@
 from numpy import *
 import pypr.clustering.gmm as gmm
+import cPickle as pickle
 
 def load_data(path, meta):
 	x=empty((1500*100, 12))
@@ -32,9 +33,14 @@ meta=path+"meta_data/ceplist.txt"
 
 x=load_data(path, meta)
 
-center_list, cov_list, p_k, logLL =gmm.em(X=x, K=16, max_iter=32, verbose=True)
+center_list, cov_list, p_k, logLL =gmm.em(X=x, K=16, max_iter=3, verbose=True)
 
-print center_list
-print cov_list
-print p_k
-print logLL
+
+with open('gmm.pickle', 'wb') as f:
+	pickle.dump([center_list, cov_list, p_k], f)
+
+
+# print center_list
+# print cov_list
+# print p_k
+# print logLL
